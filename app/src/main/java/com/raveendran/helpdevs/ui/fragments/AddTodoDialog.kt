@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddTodoDialog() : DialogFragment(R.layout.todo_add_dialog) {
+class AddTodoDialog : DialogFragment(R.layout.todo_add_dialog) {
 
     private val viewModel: TodoViewModel by viewModels()
     private var radioData = ""
@@ -34,7 +34,7 @@ class AddTodoDialog() : DialogFragment(R.layout.todo_add_dialog) {
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
 
         onRadioButtonClicked()
-        addTodoBtn.setOnClickListener {
+        addGroupBtn.setOnClickListener {
             addTodo(view)
         }
     }

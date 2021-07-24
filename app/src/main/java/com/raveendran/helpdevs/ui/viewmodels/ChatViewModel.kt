@@ -7,19 +7,22 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.raveendran.helpdevs.models.Chat
+import com.raveendran.helpdevs.models.ChatGroup
 import kotlinx.coroutines.tasks.await
 
 class ChatViewModel : ViewModel() {
 
     val chats = MutableLiveData<List<Chat>>()
+    val chatGroups = MutableLiveData<List<ChatGroup>>()
 
     init {
-        fetchChats()
+        fetchChatGroups()
     }
 
-    suspend fun addChat(chat: Chat) {
+    suspend fun addChat(groupName: String, chat: Chat) {
         var id: String
-        val db = FirebaseFirestore.getInstance().collection("Message")
+        val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
+            .collection("chat")
         try {
             db.add(chat).await().get().addOnSuccessListener {
                 id = it.id
@@ -32,8 +35,10 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    private fun fetchChats() {
-        val db = FirebaseFirestore.getInstance().collection("Message")
+    fun fetchChats(groupName: String) {
+        val db =
+            FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
+                .collection("chat")
         db.orderBy("timeStamp", Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "Listen failed", e)
@@ -52,6 +57,34 @@ class ChatViewModel : ViewModel() {
                 chats.value = emptyList()
             }
         }
+    }
+
+    fun fetchChatGroups() {
+        val db = FirebaseFirestore.getInstance().collection("ChatGroups")
+        db.orderBy("timeStamp", Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.w(ContentValues.TAG, "Listen failed", e)
+                return@addSnapshotListener
+            }
+            if (snapshot != null && snapshot.size() > 0) {
+                val items = mutableListOf<ChatGroup>()
+                for (docs in snapshot) {
+                    val groups = docs.toObject(ChatGroup::class.java)
+                    groups.let {
+                        items.add(it)
+                    }
+                    chatGroups.value = items
+                }
+            } else {
+                chatGroups.value = emptyList()
+            }
+        }
+    }
+
+
+    suspend fun createNewChatGroup(data: ChatGroup) {
+        val db = FirebaseFirestore.getInstance().collection("ChatGroups")
+        db.document(data.groupName).set(data).await()
     }
 
 }

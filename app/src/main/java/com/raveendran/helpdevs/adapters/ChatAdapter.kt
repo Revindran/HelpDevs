@@ -71,10 +71,12 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
                 outView.visibility = View.VISIBLE
                 inView.visibility = View.GONE
                 receiverTimeText.visibility = View.GONE
+                timeText.visibility = View.VISIBLE
             } else {
                 inView.visibility = View.VISIBLE
                 outView.visibility = View.GONE
                 receiverTimeText.visibility = View.VISIBLE
+                timeText.visibility = View.GONE
             }
 
         }

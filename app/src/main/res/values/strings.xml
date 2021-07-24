@@ -3,4 +3,5 @@
     <string name="dummpText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam felis nec justo tempus, in imperdiet ipsum lacinia. Pellentesque hendrerit maximus dui, id faucibus turpis varius eu. Nulla accumsan varius risus, ac efficitur ante. Nullam lobortis iaculis aliquet. Nulla facilisis diam sed ipsum varius finibus. Phasellus pulvinar faucibus dui, ut dictum enim maximus ut.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Welcome</string>
 </resources>

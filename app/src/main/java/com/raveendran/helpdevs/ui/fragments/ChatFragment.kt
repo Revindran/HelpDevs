@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.raveendran.helpdevs.R
@@ -23,11 +24,9 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
     private val viewModel: ChatViewModel by viewModels()
     private lateinit var chatAdapter: ChatAdapter
-
     private lateinit var sharedPref: SharedPreferences
-
     private var userName = ""
-
+    private val args: ChatFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,16 +35,17 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
 
+        val groups = args.groupData
+        viewModel.fetchChats(groups.groupName)
         val noDataText =
             "Hey $userName. It's seems like you currently have some free time. So why don't you Go And Watch Philips new Vids. cuz it's worth watching"
         noChatTv.text = noDataText
-
         floatingActionButton.setOnClickListener {
-            addMessageToFB(view)
+            addMessageToFB(view, groups.groupName)
         }
     }
 
-    private fun addMessageToFB(view: View) {
+    private fun addMessageToFB(view: View, groupName: String) {
         GlobalScope.launch {
             val text = msgEt.text.toString()
             if (text.isNotEmpty()) {
@@ -59,7 +59,7 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
                     "",
                     userName
                 )
-                viewModel.addChat(chat)
+                viewModel.addChat(groupName, chat)
             } else {
                 Snackbar.make(view, "Type any message to send", Snackbar.LENGTH_LONG).show()
             }

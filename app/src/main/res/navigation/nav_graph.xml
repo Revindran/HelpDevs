@@ -24,10 +24,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/chatFragment"
-        android:name="com.raveendran.helpdevs.ui.fragments.ChatFragment"
-        android:label="ChatFragment" />
-    <fragment
         android:id="@+id/addTodoDialog"
         android:name="com.raveendran.helpdevs.ui.fragments.AddTodoDialog"
         android:label="AddTodoDialog" />
@@ -43,5 +39,26 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatGroups"
+        android:name="com.raveendran.helpdevs.ui.fragments.ChatGroups"
+        android:label="ChatGroups">
+        <action
+            android:id="@+id/action_chatGroups_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.raveendran.helpdevs.ui.fragments.ChatFragment"
+        android:label="ChatFragment">
+        <argument
+            android:name="groupData"
+            app:argType="com.raveendran.helpdevs.models.ChatGroup" />
     </fragment>
 </navigation>
