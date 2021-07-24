@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/todoFragment"
+        android:icon="@drawable/ic_todo"
+        android:title="Todo" />
+    <item
+        android:id="@+id/uiViewsFragment"
+        android:icon="@drawable/ic_ph_ui"
+        android:title="UIs" />
+    <item
+        android:id="@+id/chatFragment"
+        android:icon="@drawable/ic_chat"
+        android:title="Chats" />
+</menu>

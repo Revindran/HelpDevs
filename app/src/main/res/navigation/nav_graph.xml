@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/uiViewsFragment"
+        android:name="com.raveendran.helpdevs.ui.fragments.UiViewsFragment"
+        android:label="UiViewsFragment" />
+
+    <fragment
+        android:id="@+id/todoFragment"
+        android:name="com.raveendran.helpdevs.ui.fragments.TodoFragment"
+        android:label="TodoFragment">
+        <action
+            android:id="@+id/action_todoFragment_to_addTodoDialog"
+            app:destination="@id/addTodoDialog"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.raveendran.helpdevs.ui.fragments.ChatFragment"
+        android:label="ChatFragment" />
+    <fragment
+        android:id="@+id/addTodoDialog"
+        android:name="com.raveendran.helpdevs.ui.fragments.AddTodoDialog"
+        android:label="AddTodoDialog" />
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.raveendran.helpdevs.ui.fragments.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/start_fragment">
+        <action
+            android:id="@+id/action_startFragment_to_todoFragment"
+            app:destination="@id/todoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+</navigation>
