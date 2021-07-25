@@ -22,7 +22,6 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/welcome" />
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,7 +43,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20sp"
         android:hint="Enter Name">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -54,6 +52,36 @@
             android:inputType="textCapSentences" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="20dp"
+        android:text="*This name will be used to display in msg section!"
+        android:textStyle="italic" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter any Unique Id">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/mailEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="20dp"
+        android:text="*This field will be used to store your data!"
+        android:textStyle="italic" />
 
     <Button
         android:id="@+id/continueBtn"

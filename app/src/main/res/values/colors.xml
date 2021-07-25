@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#9e9e9e</color>
-    <color name="primaryLightColor">#cfcfcf</color>
-    <color name="primaryDarkColor">#707070</color>
-    <color name="secondaryColor">#9e9e9e</color>
-    <color name="secondaryLightColor">#cfcfcf</color>
-    <color name="secondaryDarkColor">#707070</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#000000</color>
+
+    <!--    <color name="md_blue_50">#E3F2FD</color>-->
+    <!--    <color name="md_blue_100">#BBDEFB</color>-->
+    <!--    <color name="md_blue_200">#90CAF9</color>-->
+    <!--    <color name="md_blue_300">#64B5F6</color>-->
+    <!--    <color name="md_blue_400">#42A5F5</color>-->
+    <!--    <color name="md_blue_500">#2196F3</color>-->
+    <!--    <color name="md_blue_700">#1976D2</color>-->
+    <!--    <color name="md_blue_800">#1565C0</color>-->
+    <!--    <color name="md_blue_900">#0D47A1</color>-->
+    <!--    <color name="md_blue_A100">#82B1FF</color>-->
+    <!--    <color name="md_blue_A200">#448AFF</color>-->
+    <!--    <color name="md_blue_A400">#2979FF</color>-->
+    <!--    <color name="md_blue_A700">#2962FF</color>-->
+
+
+    <!--- BLUE COLOR -->
+    <color name="md_blue_50">#e3f2fd</color>
+    <color name="md_blue_100">#bbdefb</color>
+    <color name="md_blue_200">#90caf9</color>
+    <color name="md_blue_300">#64b5f6</color>
+    <color name="md_blue_400">#42a5f5</color>
+    <color name="md_blue_500">#2196f3</color>
+    <color name="md_blue_700">#1976d2</color>
+    <color name="md_blue_800">#1565c0</color>
+    <color name="md_blue_900">#0d47a1</color>
+    <color name="md_blue_A100">#82b1ff</color>
+    <color name="md_blue_A200">#448aff</color>
+    <color name="md_blue_A400">#2979ff</color>
+    <color name="md_blue_A700">#2962ff</color>
+
+    <color name="colorAccent">#FFE600</color>
+    <color name="errorColor">#D50000</color>
+    <color name="white">#FFF</color>
+    <color name="black">#D000</color>
+
+    <color name="primaryColor">#303f9f</color>
+    <color name="primaryLightColor">#666ad1</color>
+    <color name="primaryDarkColor">#001970</color>
+    <color name="secondaryColor">#3949ab</color>
+    <color name="secondaryLightColor">#6f74dd</color>
+    <color name="secondaryDarkColor">#00227b</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
 
 </resources>

@@ -1,5 +1,8 @@
 package com.raveendran.helpdevs.ui.activity
 
+import android.app.Activity
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -26,4 +29,5 @@ class MainActivity : AppCompatActivity() {
 
             }
     }
+
 }

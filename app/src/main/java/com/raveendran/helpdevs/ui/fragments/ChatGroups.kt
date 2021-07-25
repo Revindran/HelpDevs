@@ -31,6 +31,7 @@ class ChatGroups : Fragment(R.layout.chat_group_fragment) {
             }
             findNavController().navigate(R.id.action_chatGroups_to_chatFragment, bundle)
         }
+
     }
 
     private fun observeList() {

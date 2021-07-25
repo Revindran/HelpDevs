@@ -17,9 +17,10 @@
             android:id="@+id/senderTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:padding="10dp"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
             android:text="message"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -39,7 +40,6 @@
         android:id="@+id/inView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
         android:background="@drawable/incoming_bubble"
         android:orientation="horizontal">
 
@@ -47,10 +47,12 @@
             android:id="@+id/receivedTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:padding="10dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/incoming_bubble"
+            android:padding="8dp"
             android:text="message"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
     </LinearLayout>

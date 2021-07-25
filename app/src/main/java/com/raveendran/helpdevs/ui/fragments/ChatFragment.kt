@@ -36,6 +36,8 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
 
         val groups = args.groupData
+
+        grpNameTv.text = groups.groupName
         viewModel.fetchChats(groups.groupName)
         val noDataText =
             "Hey $userName. It's seems like you currently have some free time. So why don't you Go And Watch Philips new Vids. cuz it's worth watching"

@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/grpNameTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="700dp"
+        android:background="@drawable/dotted_bg"
+        android:padding="5dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/noChatView"
+        tools:layout_editor_absoluteX="16dp" />
 
     <LinearLayout
         android:id="@+id/noChatView"
@@ -27,6 +43,7 @@
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="italic" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -42,7 +59,8 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/dotted_bg"
         android:gravity="center"
         android:weightSum="3"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -54,7 +72,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="8sp"
             android:layout_weight="3"
-            android:background="@drawable/chat_et_bg"
+            android:background="@android:color/transparent"
             android:hint="Enter Message"
             android:paddingLeft="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -64,13 +82,13 @@
             app:layout_constraintStart_toEndOf="@+id/chatRecycler"
             app:layout_constraintTop_toBottomOf="@+id/chatRecycler" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
+            android:background="@android:color/transparent"
             android:clickable="true"
-            android:contentDescription="Send"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/chatRecycler"
@@ -79,5 +97,6 @@
             app:layout_constraintTop_toBottomOf="@+id/chatRecycler"
             app:srcCompat="@drawable/ic_send" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

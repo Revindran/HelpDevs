@@ -16,14 +16,9 @@ import kotlinx.android.synthetic.main.row_chat_item.view.*
 import java.text.SimpleDateFormat
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
-
     private lateinit var sharedPref: SharedPreferences
-
     private var userName = ""
-
-
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
     private val differCallback = object : DiffUtil.ItemCallback<Chat>() {
         override fun areItemsTheSame(oldItem: Chat, newItem: Chat): Boolean {
             return oldItem.timeStamp == newItem.timeStamp

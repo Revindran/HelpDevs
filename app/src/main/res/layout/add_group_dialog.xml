@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:minWidth="1000dp"
     android:orientation="vertical"
+    style="@style/AlertDialogTheme"
     android:padding="10dp">
 
 
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="20dp"
-        android:text="*You'r creating a public group!"
+        android:text="*You're creating a public group!"
         android:textStyle="italic" />
 
 
