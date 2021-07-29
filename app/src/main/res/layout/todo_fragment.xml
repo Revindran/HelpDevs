@@ -10,9 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/dotted_bg"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="5dp">
+
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Profile image"
+                android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
 
         <EditText
             android:id="@+id/searchEt"
@@ -23,7 +38,7 @@
             android:layout_weight="3"
             android:background="@android:color/transparent"
             android:hint="Search Note"
-            android:paddingStart="16dp" />
+            android:paddingStart="5dp" />
 
         <ImageButton
             android:id="@+id/searchButton"
@@ -39,9 +54,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/todoRecycler"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 

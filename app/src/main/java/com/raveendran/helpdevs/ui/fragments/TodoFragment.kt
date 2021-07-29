@@ -5,20 +5,25 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.adapters.TodoAdapter
 import com.raveendran.helpdevs.other.Constants.KEY_NAME
+import com.raveendran.helpdevs.other.Constants.KEY_USER_IMAGE
 import com.raveendran.helpdevs.other.SharedPrefs
 import com.raveendran.helpdevs.ui.viewmodels.TodoViewModel
 import kotlinx.android.synthetic.main.todo_fragment.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 
 class TodoFragment : Fragment(R.layout.todo_fragment) {
@@ -27,10 +32,11 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
     private lateinit var todoAdapter: TodoAdapter
 
     private lateinit var sharedPref: SharedPreferences
-
+    private lateinit var auth: FirebaseAuth
 
     private val dialog = AddTodoDialog()
     private var userName = ""
+    private var userImage = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,9 +44,17 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
 
         userName = sharedPref.getString(KEY_NAME, "").toString()
+        userImage = sharedPref.getString(KEY_USER_IMAGE, "").toString()
 
         viewModel.fetchTodos(userName)
 
+        auth = Firebase.auth
+        profileImageView.setOnClickListener {
+            auth.signOut()
+            updateUI(savedInstanceState)
+        }
+        Glide.with(this)
+            .load(userImage).into(profileImageView)
 
         val noDataText =
             "Hey $userName. It's seems like you currently don't have any work i guess. So why don't you Go And Watch Philips new Vids. cuz it's worth watching"
@@ -98,6 +112,19 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
 
     }
 
+    private fun updateUI(savedInstanceState: Bundle?) {
+        if (auth.currentUser == null) {
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.startFragment, true)
+                .build()
+            findNavController().navigate(
+                R.id.action_todoFragment_to_startFragment,
+                savedInstanceState,
+                navOptions
+            )
+        }
+    }
+
     private fun observeList() {
         viewModel.todos.observe(viewLifecycleOwner, {
             todoAdapter.submitList(it)
@@ -108,8 +135,6 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
             }
         })
     }
-
-
 
 
     private fun setupRecyclerView() = todoRecycler.apply {
