@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/todoTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:text="Title"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/timeTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Title"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Your Note"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/noteTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/dummyText"
+        android:textAlignment="center" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/totalProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/primaryTextColor"
+        app:trackColor="@color/secondaryDarkColor"
+        app:trackCornerRadius="6dp"
+        app:trackThickness="8dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/progressCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:text="0/0 Completed" />
+
+        <TextView
+            android:id="@+id/priorityTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="🔴 High Priority" />
+
+
+    </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/addNewCheckList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/ic_add" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/dotted_bg"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/checkListRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

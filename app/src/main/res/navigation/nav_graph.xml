@@ -8,15 +8,23 @@
     <fragment
         android:id="@+id/uiViewsFragment"
         android:name="com.raveendran.helpdevs.ui.fragments.UiViewsFragment"
-        android:label="UiViewsFragment" />
+        android:label="UiViewsFragment">
+        <action
+            android:id="@+id/action_uiViewsFragment_to_devWebViewFragment"
+            app:destination="@id/devWebViewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/todoFragment"
         android:name="com.raveendran.helpdevs.ui.fragments.TodoFragment"
         android:label="TodoFragment">
         <action
-            android:id="@+id/action_todoFragment_to_addTodoDialog"
-            app:destination="@id/addTodoDialog"
+            android:id="@+id/action_todoFragment_to_checkListFragment"
+            app:destination="@id/checkListFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -60,5 +68,28 @@
         <argument
             android:name="groupData"
             app:argType="com.raveendran.helpdevs.models.ChatGroup" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkListFragment"
+        android:name="com.raveendran.helpdevs.ui.fragments.CheckListFragment"
+        android:label="CheckListFragment">
+        <argument
+            android:name="checkList"
+            app:argType="com.raveendran.helpdevs.models.Todo" />
+    </fragment>
+    <fragment
+        android:id="@+id/devWebViewFragment"
+        android:name="com.raveendran.helpdevs.ui.fragments.DevWebViewFragment"
+        android:label="DevWebViewFragment">
+        <action
+            android:id="@+id/action_devWebViewFragment_to_uiViewsFragment"
+            app:destination="@id/uiViewsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="devData"
+            app:argType="com.raveendran.helpdevs.models.Dev" />
     </fragment>
 </navigation>

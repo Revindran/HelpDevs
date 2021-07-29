@@ -49,9 +49,14 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
             noteTv.text = todoItem.notes
             priorityTv.text =
                 if (todoItem.priority.equals("High", true)) highPriorityText else lowPriorityText
+            totalProgress.progress = todoItem.progress
+            progressCount.text = "${todoItem.progress}% Completed"
 
+//            editIconBtn.setOnClickListener {
+//                onItemClickListener?.let { it(todoItem) }
+//            }
 
-            editIconBtn.setOnClickListener {
+            setOnClickListener {
                 onItemClickListener?.let { it(todoItem) }
             }
         }

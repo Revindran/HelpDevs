@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.raveendran.helpdevs.ui.viewmodels.TodoViewModel
 import kotlinx.android.synthetic.main.todo_fragment.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 
 class TodoFragment : Fragment(R.layout.todo_fragment) {
@@ -48,8 +50,14 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
         setupRecyclerView()
 
         todoAdapter.setOnItemClickListener {
-            val updateTodoDialog = UpdateTodoDialog(it)
-            updateTodoDialog.show(parentFragmentManager, "msg")
+//            val updateTodoDialog = UpdateTodoDialog(it)
+//            updateTodoDialog.show(parentFragmentManager, "msg")
+
+            val bundle = Bundle().apply {
+                putSerializable("checkList", it)
+            }
+
+            findNavController().navigate(R.id.action_todoFragment_to_checkListFragment, bundle)
         }
         floatAddBtn.setOnClickListener {
             dialog.show(parentFragmentManager, "tag")
@@ -90,14 +98,6 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
 
     }
 
-//    @SuppressLint("HardwareIds")
-//    fun getDeviceId(): String {
-//        return Settings.Secure.getString(
-//            Application().contentResolver,
-//            Settings.Secure.ANDROID_ID
-//        )
-//    }
-
     private fun observeList() {
         viewModel.todos.observe(viewLifecycleOwner, {
             todoAdapter.submitList(it)
@@ -108,6 +108,8 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
             }
         })
     }
+
+
 
 
     private fun setupRecyclerView() = todoRecycler.apply {

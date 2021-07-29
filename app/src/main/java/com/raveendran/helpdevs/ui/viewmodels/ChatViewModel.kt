@@ -15,6 +15,8 @@ class ChatViewModel : ViewModel() {
     val chats = MutableLiveData<List<Chat>>()
     val chatGroups = MutableLiveData<List<ChatGroup>>()
 
+
+
     init {
         fetchChatGroups()
     }
@@ -59,7 +61,7 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    fun fetchChatGroups() {
+    private fun fetchChatGroups() {
         val db = FirebaseFirestore.getInstance().collection("ChatGroups")
         db.orderBy("timeStamp", Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -80,6 +82,11 @@ class ChatViewModel : ViewModel() {
             }
         }
     }
+
+
+
+
+
 
 
     suspend fun createNewChatGroup(data: ChatGroup) {
