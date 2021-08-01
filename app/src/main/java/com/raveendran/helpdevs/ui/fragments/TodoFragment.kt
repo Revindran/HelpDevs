@@ -1,11 +1,13 @@
 package com.raveendran.helpdevs.ui.fragments
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,8 +22,12 @@ import com.raveendran.helpdevs.adapters.TodoAdapter
 import com.raveendran.helpdevs.other.Constants.KEY_NAME
 import com.raveendran.helpdevs.other.Constants.KEY_USER_IMAGE
 import com.raveendran.helpdevs.other.SharedPrefs
+import com.raveendran.helpdevs.other.SharedPrefs.Companion.clearSharedPrefs
+import com.raveendran.helpdevs.ui.activity.LoginActivity
 import com.raveendran.helpdevs.ui.viewmodels.TodoViewModel
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.todo_fragment.*
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -38,6 +44,7 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
     private var userName = ""
     private var userImage = ""
 
+    @DelicateCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,11 +54,20 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
         userImage = sharedPref.getString(KEY_USER_IMAGE, "").toString()
 
         viewModel.fetchTodos(userName)
+        val anim = AnimationUtils.loadAnimation(context, R.anim.simple_anim)
+        greetingEt.startAnimation(anim)
+        currentime.startAnimation(anim)
+        currentime.text =
+            if (getCurrentTime() <= 11) "\uD83C\uDF04" else if (getCurrentTime() <= 16) "\uD83C\uDF1E" else "\uD83C\uDF03"
+        greetingEt.text =
+            if (getCurrentTime() <= 11) "Good Morning $userName!!" else if (getCurrentTime() <= 16) "Good Afternoon $userName!!" else "Good Evening $userName!!"
 
         auth = Firebase.auth
         profileImageView.setOnClickListener {
-            auth.signOut()
-            updateUI(savedInstanceState)
+            auth.signOut().also {
+                Toast.makeText(context, "Logout Successful", Toast.LENGTH_SHORT).show()
+            }
+            updateUI()
         }
         Glide.with(this)
             .load(userImage).into(profileImageView)
@@ -66,11 +82,9 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
         todoAdapter.setOnItemClickListener {
 //            val updateTodoDialog = UpdateTodoDialog(it)
 //            updateTodoDialog.show(parentFragmentManager, "msg")
-
             val bundle = Bundle().apply {
                 putSerializable("checkList", it)
             }
-
             findNavController().navigate(R.id.action_todoFragment_to_checkListFragment, bundle)
         }
         floatAddBtn.setOnClickListener {
@@ -112,16 +126,13 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
 
     }
 
-    private fun updateUI(savedInstanceState: Bundle?) {
+    private fun getCurrentTime(): Int {
+        return String.format("%1\$TH", System.currentTimeMillis()).toInt()
+    }
+
+    private fun updateUI() {
         if (auth.currentUser == null) {
-            val navOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.startFragment, true)
-                .build()
-            findNavController().navigate(
-                R.id.action_todoFragment_to_startFragment,
-                savedInstanceState,
-                navOptions
-            )
+            navigateToLogin()
         }
     }
 
@@ -138,8 +149,20 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
 
 
     private fun setupRecyclerView() = todoRecycler.apply {
-        todoAdapter = TodoAdapter()
+        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy < 0 && !floatAddBtn.isShown) floatAddBtn.show() else if (dy > 0 && floatAddBtn.isShown) floatAddBtn.hide()
+            }
+        })
+        todoAdapter = TodoAdapter(context)
         adapter = todoAdapter
         layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun navigateToLogin() {
+        clearSharedPrefs(sharedPref)
+        startActivity(Intent(context, LoginActivity::class.java))
+        clearFindViewByIdCache()
+        activity?.finish()
     }
 }

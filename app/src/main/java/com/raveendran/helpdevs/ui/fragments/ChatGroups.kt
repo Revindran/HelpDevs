@@ -2,10 +2,12 @@ package com.raveendran.helpdevs.ui.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.adapters.ChatGroupsAdapter
 import com.raveendran.helpdevs.ui.viewmodels.ChatViewModel
@@ -21,6 +23,8 @@ class ChatGroups : Fragment(R.layout.chat_group_fragment) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeList()
+        val anim = AnimationUtils.loadAnimation(context, R.anim.simple_anim)
+        linearLayout.startAnimation(anim)
         addGroupButton.setOnClickListener {
             dialog.show(parentFragmentManager, "addChat")
         }
@@ -46,7 +50,12 @@ class ChatGroups : Fragment(R.layout.chat_group_fragment) {
     }
 
     private fun setupRecyclerView() = groupsRv.apply {
-        chatGroupsAdapter = ChatGroupsAdapter()
+        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy < 0 && !addGroupButton.isShown) addGroupButton.show() else if (dy > 0 && addGroupButton.isShown) addGroupButton.hide()
+            }
+        })
+        chatGroupsAdapter = ChatGroupsAdapter(context)
         adapter = chatGroupsAdapter
         layoutManager = LinearLayoutManager(requireContext())
     }

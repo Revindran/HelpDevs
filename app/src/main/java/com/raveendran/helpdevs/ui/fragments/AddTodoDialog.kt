@@ -13,7 +13,8 @@ import com.raveendran.helpdevs.other.SharedPrefs
 import com.raveendran.helpdevs.ui.viewmodels.TodoViewModel
 import kotlinx.android.synthetic.main.todo_add_dialog.*
 import kotlinx.android.synthetic.main.todo_add_dialog.view.*
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,7 +52,7 @@ class AddTodoDialog : DialogFragment(R.layout.todo_add_dialog) {
                 radioData,
                 notesET.text.toString()
             )
-            GlobalScope.launch {
+            CoroutineScope(Dispatchers.IO).launch {
                 viewModel.addNewTodo(data, userName)
             }
 

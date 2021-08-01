@@ -18,7 +18,9 @@ import java.text.SimpleDateFormat
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     private lateinit var sharedPref: SharedPreferences
     private var userName = ""
+
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
     private val differCallback = object : DiffUtil.ItemCallback<Chat>() {
         override fun areItemsTheSame(oldItem: Chat, newItem: Chat): Boolean {
             return oldItem.timeStamp == newItem.timeStamp
@@ -34,9 +36,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     fun submitList(list: List<Chat>) = differ.submitList(list)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-
-        sharedPref = parent.context.let { SharedPrefs.sharedPreferences(it) }!!
-
+        sharedPref = parent.context.let { SharedPrefs.sharedPreferences(it) }
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
         return ChatViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -47,31 +47,37 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
         )
     }
 
-    @SuppressLint("SimpleDateFormat")
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val chat = differ.currentList[position]
         holder.itemView.apply {
             receivedTv.text = chat.text
             senderTv.text = chat.text
 
+
             var spf = SimpleDateFormat("MMM dd, yyyy hh:mm a")
             val newDate = spf.parse(chat.time)
             spf = SimpleDateFormat("hh:mm a")
-            val time = spf.format(newDate)
+            val time = spf.format(newDate!!)
 
             timeText.text = time
+            sendByYou.text = "you | $time"
             receiverTimeText.text = time
-
+            senderNameTv.text = time + " | From: ${chat.name}"
             if (userName.equals(chat.name, true)) {
                 outView.visibility = View.VISIBLE
                 inView.visibility = View.GONE
                 receiverTimeText.visibility = View.GONE
-                timeText.visibility = View.VISIBLE
+                senderNameTv.visibility = View.GONE
+                timeText.visibility = View.GONE
+                sendByYou.visibility = View.VISIBLE
             } else {
                 inView.visibility = View.VISIBLE
                 outView.visibility = View.GONE
-                receiverTimeText.visibility = View.VISIBLE
+                receiverTimeText.visibility = View.GONE
+                senderNameTv.visibility = View.VISIBLE
                 timeText.visibility = View.GONE
+                sendByYou.visibility = View.GONE
             }
 
         }

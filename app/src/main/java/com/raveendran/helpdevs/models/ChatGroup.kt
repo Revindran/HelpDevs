@@ -7,4 +7,7 @@ data class ChatGroup(
     val createdBy: String = "",
     val createdTime: String = "",
     val timeStamp: Long = 0L,
+    val lastChat: String = "",
+    val lastChatMemberName: String = "",
+    val lastChatTime: String = "",
 ) : Serializable

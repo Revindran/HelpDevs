@@ -1,8 +1,11 @@
 package com.raveendran.helpdevs.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,9 +14,10 @@ import com.raveendran.helpdevs.models.Todo
 import kotlinx.android.synthetic.main.row_todo_item.view.*
 
 
-class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
+class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     inner class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    private var lastPosition = -1
 
     private val differCallback = object : DiffUtil.ItemCallback<Todo>() {
         override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
@@ -55,7 +59,7 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 //            editIconBtn.setOnClickListener {
 //                onItemClickListener?.let { it(todoItem) }
 //            }
-
+            setAnimation(this, position)
             setOnClickListener {
                 onItemClickListener?.let { it(todoItem) }
             }
@@ -72,5 +76,15 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     override fun getItemCount(): Int {
         return differ.currentList.size
+    }
+
+
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+        if (position > lastPosition) {
+            val animation: Animation =
+                AnimationUtils.loadAnimation(context, R.anim.rotate_anim)
+            viewToAnimate.startAnimation(animation)
+            lastPosition = position
+        }
     }
 }

@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:orientation="vertical">
-
 
     <LinearLayout
         android:id="@+id/noGroupsView"
@@ -23,67 +21,54 @@
             app:lottie_rawRes="@raw/empty_notes" />
 
         <TextView
-            android:id="@+id/noDataTv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Text here"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="italic" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/addGroupButton"
-        android:layout_width="50dp"
-        android:layout_height="60dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_add"
-        app:cornerRadius="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/groupsRv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/centerTv"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/centerTv"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/welcome"
-        android:textSize="24sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/groupsRv"
-        app:layout_constraintEnd_toStartOf="@+id/addGroupButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/bacKbtn"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/bacKbtn"
-        android:layout_width="50dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="3dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_back"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/groupsRv"
-        app:layout_constraintEnd_toStartOf="@+id/centerTv"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/leckerli_one"
+            android:gravity="center_vertical"
+            android:text="Group Chats"
+            android:textSize="28sp"
+            android:textStyle="bold|italic" />
 
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupsRv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/noGroupsView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bacKbtn" />
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addGroupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.921"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_group_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@
             android:id="@+id/senderTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:padding="8dp"
             android:text="message"
             android:textColor="@color/white"
@@ -26,11 +26,20 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/sendByYou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
+        android:textSize="12sp"
+        android:textStyle="italic" />
+
+    <TextView
         android:id="@+id/timeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:text="3:23 PM"
         android:textSize="12sp"
         android:textStyle="italic" />
@@ -41,15 +50,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/incoming_bubble"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/receivedTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="8dp"
-            android:background="@drawable/incoming_bubble"
+            android:layout_marginStart="2dp"
             android:padding="8dp"
             android:text="message"
             android:textColor="@color/black"
@@ -58,12 +66,21 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/senderNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="5dp"
+        android:text="By Raveendran"
+        android:textSize="12sp"
+        android:textStyle="italic" />
+
+    <TextView
         android:id="@+id/receiverTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginStart="5dp"
-        android:paddingBottom="4dp"
         android:text="3:23 PM"
         android:textSize="12sp"
         android:textStyle="italic" />

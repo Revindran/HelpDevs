@@ -4,11 +4,11 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.raveendran.helpdevs.models.Todo
 import com.raveendran.helpdevs.models.TodoCheckList
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -50,7 +50,6 @@ class TodoViewModel : ViewModel() {
                 val data = hashMapOf("id" to id)
                 db.document(id).update(data as Map<String, Any>)
             }
-
         } catch (e: Exception) {
             print(e.message)
         }
@@ -63,7 +62,7 @@ class TodoViewModel : ViewModel() {
             for (doc in it) {
                 doc.reference.delete()
             }
-            GlobalScope.launch {
+            viewModelScope.launch {
                 FirebaseFirestore.getInstance().collection(userName).document(id).delete().await()
             }
         }

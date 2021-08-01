@@ -16,7 +16,6 @@ class ChatViewModel : ViewModel() {
     val chatGroups = MutableLiveData<List<ChatGroup>>()
 
 
-
     init {
         fetchChatGroups()
     }
@@ -30,11 +29,24 @@ class ChatViewModel : ViewModel() {
                 id = it.id
                 val data = hashMapOf("id" to id)
                 db.document(id).update(data as Map<String, Any>)
+                val data2 = hashMapOf(
+                    "lastChat" to chat.text,
+                    "lastChatMemberName" to chat.name,
+                    "lastChatTime" to chat.time
+                )
+                FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
+                    .update(data2 as Map<String, Any>)
             }
-
         } catch (e: Exception) {
             print(e.message)
         }
+    }
+
+    suspend fun addMemberToGroup(groupName: String, uid: String) {
+        val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
+            .collection("Members")
+        val data = hashMapOf("uid" to uid)
+        db.add(data).await()
     }
 
     fun fetchChats(groupName: String) {
@@ -82,11 +94,6 @@ class ChatViewModel : ViewModel() {
             }
         }
     }
-
-
-
-
-
 
 
     suspend fun createNewChatGroup(data: ChatGroup) {

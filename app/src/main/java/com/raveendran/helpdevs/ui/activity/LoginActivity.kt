@@ -1,4 +1,4 @@
-package com.raveendran.helpdevs.ui.fragments
+package com.raveendran.helpdevs.ui.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -6,12 +6,9 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -23,34 +20,33 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.raveendran.helpdevs.R
-import com.raveendran.helpdevs.other.Constants.KEY_EMAIL
-import com.raveendran.helpdevs.other.Constants.KEY_FIRST_TIME_TOGGLE
-import com.raveendran.helpdevs.other.Constants.KEY_NAME
-import com.raveendran.helpdevs.other.Constants.KEY_UID
-import com.raveendran.helpdevs.other.Constants.KEY_USER_IMAGE
+import com.raveendran.helpdevs.other.Constants
 import com.raveendran.helpdevs.other.SharedPrefs
-import kotlinx.android.synthetic.main.start_fragment.*
+import kotlinx.android.synthetic.main.activity_login.*
 
-class StartFragment : Fragment(R.layout.start_fragment) {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var sharedPref: SharedPreferences
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     private val gTAG = "Google Sign In"
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
+        setContentView(R.layout.activity_login)
+
+        sharedPref = this.let { SharedPrefs.sharedPreferences(it) }!!
         auth = Firebase.auth
         val currentUser = auth.currentUser
-        updateUI(currentUser, savedInstanceState)
+        updateUI(currentUser)
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         googleSignButton.setOnClickListener {
             signIn()
@@ -84,23 +80,23 @@ class StartFragment : Fragment(R.layout.start_fragment) {
         auth.signInWithCredential(credential)
             .addOnSuccessListener {
                 val firebaseUser = auth.currentUser
-
                 val uid = firebaseUser?.uid
                 val name = firebaseUser?.displayName
                 val email = firebaseUser?.email
                 val userImage = firebaseUser?.photoUrl
-                findNavController().navigate(R.id.action_startFragment_to_todoFragment)
+                navigateToHome()
                 writePersonalDataToSharedPref(uid, name, email, userImage)
                 if (it.additionalUserInfo!!.isNewUser) {
                     Log.d(gTAG, "firebaseAuthWithGoogle: new acc created $email")
                 } else {
                     Log.d(gTAG, "firebaseAuthWithGoogle: Existing user $email")
                 }
+                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Log.d(gTAG, "firebaseAuthWithGoogle: ${it.message}")
                 Toast.makeText(
-                    requireContext(),
+                    this,
                     "Login Failed due to ${it.message}",
                     Toast.LENGTH_LONG
                 ).show()
@@ -117,26 +113,24 @@ class StartFragment : Fragment(R.layout.start_fragment) {
             return false
         }
         sharedPref.edit()
-            .putString(KEY_UID, uid)
-            .putString(KEY_NAME, name)
-            .putString(KEY_USER_IMAGE, userImage.toString())
-            .putString(KEY_EMAIL, email)
-            .putBoolean(KEY_FIRST_TIME_TOGGLE, false)
+            .putString(Constants.KEY_UID, uid)
+            .putString(Constants.KEY_NAME, name)
+            .putString(Constants.KEY_USER_IMAGE, userImage.toString())
+            .putString(Constants.KEY_EMAIL, email)
+            .putBoolean(Constants.KEY_FIRST_TIME_TOGGLE, false)
             .apply()
-        print(sharedPref.getString(KEY_NAME, ""))
+        print(sharedPref.getString(Constants.KEY_NAME, ""))
         return true
     }
 
-    private fun updateUI(currentUser: FirebaseUser?, savedInstanceState: Bundle?) {
+    private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-            val navOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.startFragment, true)
-                .build()
-            findNavController().navigate(
-                R.id.action_startFragment_to_todoFragment,
-                savedInstanceState,
-                navOptions
-            )
+            navigateToHome()
         }
+    }
+
+    private fun navigateToHome() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

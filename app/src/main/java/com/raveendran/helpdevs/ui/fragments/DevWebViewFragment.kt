@@ -18,6 +18,7 @@ class DevWebViewFragment : Fragment(R.layout.dev_webview_fragment) {
         val dev = args.devData
 
         webView.apply {
+            settings.userAgentString = System.getProperty("http.agent")
             webViewClient = WebViewClient()
             loadUrl(dev.url)
         }
