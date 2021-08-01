@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/addTodoDialog"
-        android:name="com.raveendran.helpdevs.ui.fragments.AddTodoDialog"
+        android:name="com.raveendran.helpdevs.ui.dialogs.AddTodoDialog"
         android:label="AddTodoDialog" />
     <fragment
         android:id="@+id/startFragment"
@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/chatGroups"
-        android:name="com.raveendran.helpdevs.ui.fragments.ChatGroups"
+        android:name="com.raveendran.helpdevs.ui.fragments.ChatGroupFragment"
         android:label="ChatGroups">
         <action
             android:id="@+id/action_chatGroups_to_chatFragment"

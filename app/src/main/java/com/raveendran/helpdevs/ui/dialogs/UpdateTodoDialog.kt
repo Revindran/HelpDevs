@@ -1,4 +1,4 @@
-package com.raveendran.helpdevs.ui.fragments
+package com.raveendran.helpdevs.ui.dialogs
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-
+import androidx.lifecycle.lifecycleScope
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.models.Todo
 import com.raveendran.helpdevs.other.Constants
@@ -15,7 +15,6 @@ import com.raveendran.helpdevs.ui.viewmodels.TodoViewModel
 import kotlinx.android.synthetic.main.todo_add_dialog.radioGroup
 import kotlinx.android.synthetic.main.todo_update_dialog.*
 import kotlinx.android.synthetic.main.todo_update_dialog.view.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,27 +22,20 @@ import java.util.*
 class UpdateTodoDialog(todoItem: Todo) : DialogFragment(R.layout.todo_update_dialog) {
 
     private val todo = todoItem
-
     private val viewModel: TodoViewModel by viewModels()
     private var radioData = ""
-
     private lateinit var sharedPref: SharedPreferences
-
     private var userName = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
-
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
-
         onRadioButtonClicked()
         updateTodoBtn.setOnClickListener {
             updateTodo(view)
             dialog?.dismiss()
         }
-
         updateTitleET.setText(todo.todo)
         updateNotesET.setText(todo.notes)
         if (todo.priority.equals("high", true)) updateRadioHighBtn.isChecked =
@@ -63,7 +55,7 @@ class UpdateTodoDialog(todoItem: Todo) : DialogFragment(R.layout.todo_update_dia
                 updateNotesET.text.toString(),
                 todo.id
             )
-            GlobalScope.launch {
+            lifecycleScope.launch {
                 viewModel.updateTodo(data, userName)
             }
 

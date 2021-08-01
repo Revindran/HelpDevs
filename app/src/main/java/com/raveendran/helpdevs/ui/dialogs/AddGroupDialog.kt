@@ -1,4 +1,4 @@
-package com.raveendran.helpdevs.ui.fragments
+package com.raveendran.helpdevs.ui.dialogs
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -7,22 +7,19 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.raveendran.helpdevs.R
-import com.raveendran.helpdevs.models.Todo
-import com.raveendran.helpdevs.models.TodoCheckList
+import com.raveendran.helpdevs.models.ChatGroup
 import com.raveendran.helpdevs.other.Constants
 import com.raveendran.helpdevs.other.SharedPrefs
-import com.raveendran.helpdevs.ui.viewmodels.TodoViewModel
-import kotlinx.android.synthetic.main.add_new_checklist.*
+import com.raveendran.helpdevs.ui.viewmodels.ChatViewModel
+import kotlinx.android.synthetic.main.add_group_dialog.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddCheckListDialog(data: Todo) : DialogFragment(R.layout.add_new_checklist) {
+class AddGroupDialog : DialogFragment(R.layout.add_group_dialog) {
 
-    private val todo = data
-
-    private val viewModel: TodoViewModel by viewModels()
+    private val viewModel: ChatViewModel by viewModels()
     private lateinit var sharedPref: SharedPreferences
     private var userName = ""
 
@@ -30,33 +27,26 @@ class AddCheckListDialog(data: Todo) : DialogFragment(R.layout.add_new_checklist
         super.onViewCreated(view, savedInstanceState)
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
-        addChkListBtn.setOnClickListener {
-            addNewCheckList(view)
+        addGroupBtn.setOnClickListener {
+            createNewChatGroup(view)
         }
     }
 
-    private fun addNewCheckList(view: View) {
+    private fun createNewChatGroup(view: View) {
         val date = Date()
         val ft = SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.US)
         val currentDateTime = ft.format(date)
-        val title = chkListTitleET.text
-        val data = TodoCheckList(
-            title.toString(),
-            false,
-            "",
-            0,
-            System.currentTimeMillis(),
-            currentDateTime
-        )
-        if (title.toString().isNotEmpty()) {
+        val name = groupTitleET.text.toString()
+        val data = ChatGroup(name, userName, currentDateTime, System.currentTimeMillis())
+        if (name.isNotEmpty()) {
             GlobalScope.launch {
-                viewModel.addCheckList(userName, todo.id, data)
+                viewModel.createNewChatGroup(data)
             }
-            chkListTitleET.setText("")
+            groupTitleET.setText("")
             dialog?.dismiss()
         } else Snackbar.make(
             view,
-            "Please provide some title",
+            "Please provide any name to create a group",
             Snackbar.LENGTH_SHORT
         ).show()
     }

@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.row_todo_item.view.*
 class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     inner class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
     private var lastPosition = -1
 
     private val differCallback = object : DiffUtil.ItemCallback<Todo>() {
@@ -56,9 +57,7 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
             totalProgress.progress = todoItem.progress
             progressCount.text = "${todoItem.progress}% Completed"
 
-//            editIconBtn.setOnClickListener {
-//                onItemClickListener?.let { it(todoItem) }
-//            }
+
             setAnimation(this, position)
             setOnClickListener {
                 onItemClickListener?.let { it(todoItem) }
@@ -78,11 +77,10 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
         return differ.currentList.size
     }
 
-
     private fun setAnimation(viewToAnimate: View, position: Int) {
         if (position > lastPosition) {
             val animation: Animation =
-                AnimationUtils.loadAnimation(context, R.anim.rotate_anim)
+                AnimationUtils.loadAnimation(context, R.anim.recycler_fall_down_anim)
             viewToAnimate.startAnimation(animation)
             lastPosition = position
         }

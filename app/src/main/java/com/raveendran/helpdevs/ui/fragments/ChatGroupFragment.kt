@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.adapters.ChatGroupsAdapter
+import com.raveendran.helpdevs.ui.dialogs.AddGroupDialog
 import com.raveendran.helpdevs.ui.viewmodels.ChatViewModel
 import kotlinx.android.synthetic.main.chat_group_fragment.*
 
-class ChatGroups : Fragment(R.layout.chat_group_fragment) {
+class ChatGroupFragment : Fragment(R.layout.chat_group_fragment) {
 
     private val dialog = AddGroupDialog()
     private val viewModel: ChatViewModel by viewModels()

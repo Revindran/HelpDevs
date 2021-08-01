@@ -1,4 +1,4 @@
-package com.raveendran.helpdevs.ui.fragments
+package com.raveendran.helpdevs.ui.dialogs
 
 import android.content.SharedPreferences
 import android.os.Bundle

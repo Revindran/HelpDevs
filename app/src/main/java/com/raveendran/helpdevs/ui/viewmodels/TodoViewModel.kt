@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.raveendran.helpdevs.models.Todo
 import com.raveendran.helpdevs.models.TodoCheckList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -21,7 +22,7 @@ class TodoViewModel : ViewModel() {
 
     fun fetchTodos(userName: String) {
         val db = FirebaseFirestore.getInstance().collection(userName)
-        db.orderBy("timeStamp", Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
+        db.orderBy("timeStamp", Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "Listen failed", e)
                 return@addSnapshotListener
@@ -74,8 +75,15 @@ class TodoViewModel : ViewModel() {
     }
 
     suspend fun updateTodo(todo: Todo, userName: String) {
+        val data =
+            hashMapOf(
+                "notes" to todo.notes,
+                "todo" to todo.todo,
+                "priority" to todo.priority,
+                "timeStamp" to System.currentTimeMillis()
+            )
         val db = FirebaseFirestore.getInstance().collection(userName).document(todo.id)
-        db.set(todo).await()
+        db.update(data as Map<String, Any>).await()
     }
 
     suspend fun addCheckList(name: String, id: String, data: TodoCheckList) {
@@ -129,6 +137,7 @@ class TodoViewModel : ViewModel() {
     }
 
     suspend fun updatePercentage(name: String, docId: String, status: Int) {
+        delay(1000)
         val data = hashMapOf("progress" to status)
         val db = FirebaseFirestore.getInstance().collection(name).document(docId)
         db.update(data as Map<String, Any>).await()

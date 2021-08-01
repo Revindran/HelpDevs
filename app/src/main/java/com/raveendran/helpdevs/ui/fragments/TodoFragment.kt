@@ -24,6 +24,7 @@ import com.raveendran.helpdevs.other.Constants.KEY_USER_IMAGE
 import com.raveendran.helpdevs.other.SharedPrefs
 import com.raveendran.helpdevs.other.SharedPrefs.Companion.clearSharedPrefs
 import com.raveendran.helpdevs.ui.activity.LoginActivity
+import com.raveendran.helpdevs.ui.dialogs.AddTodoDialog
 import com.raveendran.helpdevs.ui.viewmodels.TodoViewModel
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.todo_fragment.*
@@ -60,7 +61,7 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
         currentime.text =
             if (getCurrentTime() <= 11) "\uD83C\uDF04" else if (getCurrentTime() <= 16) "\uD83C\uDF1E" else "\uD83C\uDF03"
         greetingEt.text =
-            if (getCurrentTime() <= 11) "Good Morning $userName!!" else if (getCurrentTime() <= 16) "Good Afternoon $userName!!" else "Good Evening $userName!!"
+            if (getCurrentTime() <= 11) "Good Morning $userName!!" else if (getCurrentTime() <= 16) "Good Afternoon $userName!!" else if (getCurrentTime() <= 20) "Good Evening $userName!!" else "Good Night Have A Great Sleep"
 
         auth = Firebase.auth
         profileImageView.setOnClickListener {
@@ -80,8 +81,6 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
         setupRecyclerView()
 
         todoAdapter.setOnItemClickListener {
-//            val updateTodoDialog = UpdateTodoDialog(it)
-//            updateTodoDialog.show(parentFragmentManager, "msg")
             val bundle = Bundle().apply {
                 putSerializable("checkList", it)
             }
