@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/AlertDialogTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -68,14 +69,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Low" />
-
         </RadioGroup>
 
         <Button
             android:id="@+id/updateTodoBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="update Todo" />
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/md_blue_700"
+            android:elevation="10dp"
+            android:text="update Todo"
+            app:cornerRadius="30dp" />
 
     </LinearLayout>
 

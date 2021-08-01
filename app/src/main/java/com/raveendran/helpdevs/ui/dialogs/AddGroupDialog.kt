@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddGroupDialog : DialogFragment(R.layout.add_group_dialog) {
-
+    override fun getTheme() = R.style.AlertDialogTheme
     private val viewModel: ChatViewModel by viewModels()
     private lateinit var sharedPref: SharedPreferences
     private var userName = ""

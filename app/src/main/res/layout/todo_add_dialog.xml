@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/AlertDialogTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -71,11 +72,15 @@
 
         </RadioGroup>
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/addGroupBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="add Todo" />
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/md_blue_700"
+            android:elevation="10dp"
+            android:text="add Todo"
+            app:cornerRadius="30dp" />
 
     </LinearLayout>
 

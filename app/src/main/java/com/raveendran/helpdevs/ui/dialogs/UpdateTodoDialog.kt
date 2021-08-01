@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class UpdateTodoDialog(todoItem: Todo) : DialogFragment(R.layout.todo_update_dialog) {
-
+    override fun getTheme() = R.style.AlertDialogTheme
     private val todo = todoItem
     private val viewModel: TodoViewModel by viewModels()
     private var radioData = ""
@@ -78,6 +78,4 @@ class UpdateTodoDialog(todoItem: Todo) : DialogFragment(R.layout.todo_update_dia
         return view.updateNotesET.text.toString().isNotEmpty() && view.updateTitleET.text.toString()
             .isNotEmpty() && radioData.isNotEmpty()
     }
-
-
 }

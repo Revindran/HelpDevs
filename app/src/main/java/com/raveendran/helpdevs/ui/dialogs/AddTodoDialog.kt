@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddTodoDialog : DialogFragment(R.layout.todo_add_dialog) {
-
+    override fun getTheme() = R.style.AlertDialogTheme
     private val viewModel: TodoViewModel by viewModels()
     private var radioData = ""
     private lateinit var sharedPref: SharedPreferences

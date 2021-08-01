@@ -80,7 +80,7 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
     private fun setAnimation(viewToAnimate: View, position: Int) {
         if (position > lastPosition) {
             val animation: Animation =
-                AnimationUtils.loadAnimation(context, R.anim.recycler_fall_down_anim)
+                AnimationUtils.loadAnimation(context, R.anim.slide_anim)
             viewToAnimate.startAnimation(animation)
             lastPosition = position
         }

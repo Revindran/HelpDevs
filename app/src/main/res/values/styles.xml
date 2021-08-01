@@ -54,6 +54,7 @@
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="android:background">@color/md_blue_800</item>
         <item name="android:radius">20dp</item>
+        <item name="dialogCornerRadius">20dp</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
     </style>

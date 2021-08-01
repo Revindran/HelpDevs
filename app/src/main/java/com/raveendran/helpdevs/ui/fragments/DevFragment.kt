@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.adapters.DevAdapter
 import com.raveendran.helpdevs.ui.viewmodels.UiViewModel
-import kotlinx.android.synthetic.main.ui_view_fragment.*
+import kotlinx.android.synthetic.main.dev_fragment.*
 
-class UiViewsFragment : Fragment(R.layout.ui_view_fragment) {
+class DevFragment : Fragment(R.layout.dev_fragment) {
 
     private val viewModel: UiViewModel by viewModels()
     private lateinit var devAdapter: DevAdapter
@@ -35,7 +35,7 @@ class UiViewsFragment : Fragment(R.layout.ui_view_fragment) {
     }
 
     private fun setupRecyclerView() = devRecycler.apply {
-        devAdapter = DevAdapter()
+        devAdapter = DevAdapter(context)
         adapter = devAdapter
         layoutManager = LinearLayoutManager(requireContext())
     }

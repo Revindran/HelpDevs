@@ -75,16 +75,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/poppins_medium"
             android:text="@string/dummyText"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/totalProgress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:indicatorColor="@color/primaryTextColor"
-            app:trackColor="@color/secondaryDarkColor"
+            app:trackColor="@color/md_blue_700"
             app:trackCornerRadius="6dp"
             app:trackThickness="8dp" />
 
@@ -152,8 +151,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/checkListRecycler"
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
