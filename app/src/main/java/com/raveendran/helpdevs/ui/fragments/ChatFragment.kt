@@ -5,11 +5,12 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.adapters.ChatAdapter
 import com.raveendran.helpdevs.models.Chat
@@ -45,8 +46,15 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         grpNameTv.text = groups.groupName
         viewModel.fetchChats(groups.groupName)
 
+
 //        lifecycleScope.launch {
-//            viewModel.addMemberToGroup(groups.groupName, userID)
+//            if (viewModel.isMemberAdded(groups.groupName, userID)) {
+//                viewModel.updateTheMessageCount(groups.groupName)
+//                Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+//            } else {
+//                viewModel.addMemberToGroup(groups.groupName, userID)
+//                Toast.makeText(context, "Now Newly Added", Toast.LENGTH_SHORT).show()
+//            }
 //        }
 
         val noDataText =
@@ -80,7 +88,8 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
     }
 
     private fun View.hideKeyboard() {
-        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 

@@ -35,18 +35,53 @@ class ChatViewModel : ViewModel() {
                     "lastChatTime" to chat.time
                 )
                 FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
-                    .update(data2 as Map<String, Any>)
+                    .update(data2 as Map<String, Any>).addOnSuccessListener {
+                        // TODO: 02-08-2021 Update the message count
+                    }
             }
         } catch (e: Exception) {
             print(e.message)
         }
     }
 
+    suspend fun isMemberAdded(groupName: String, uid: String): Boolean {
+        val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
+            .collection("members").document(uid).get().await()
+        if (db.exists()) {
+            return true
+        }
+        return false
+    }
+
     suspend fun addMemberToGroup(groupName: String, uid: String) {
         val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
-            .collection("Members")
-        val data = hashMapOf("uid" to uid)
-        db.add(data).await()
+            .collection("members").document(uid)
+        val data = hashMapOf("count" to 0, "uid" to uid)
+        db.set(data as Map<String, Any>).await()
+    }
+
+    fun updateTheMessageCount(groupName: String) {
+        val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
+            .collection("members")
+        db.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.w(ContentValues.TAG, "Listen failed", e)
+                return@addSnapshotListener
+            }
+            if (snapshot != null && snapshot.size() > 0) {
+                for (doc in snapshot) {
+                    val count = doc["count"]
+                    val id = doc.id
+                }
+            }
+        }
+    }
+
+    private fun updateCount(groupName: String, uid: String, count: String) {
+        var c = count.toInt()
+        val data = hashMapOf("count" to c++)
+        FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
+            .collection("members").document(uid).update(data as Map<String, Any>)
     }
 
     fun fetchChats(groupName: String) {
