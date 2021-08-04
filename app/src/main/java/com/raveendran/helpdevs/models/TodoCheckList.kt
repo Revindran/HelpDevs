@@ -5,6 +5,6 @@ class TodoCheckList(
     val checked: Boolean = false,
     val id: String = "",
     val percentage: Int = 0,
-    val timeStamp: Long = 0L,
+    val timeStamp: Long = System.currentTimeMillis(),
     val createdTime: String = "",
 )

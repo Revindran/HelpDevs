@@ -29,7 +29,6 @@ class CheckListFragment : Fragment(R.layout.check_list_fragment) {
     private lateinit var sharedPref: SharedPreferences
     private val args: CheckListFragmentArgs by navArgs()
     private var userName = ""
-    var progress = 0
 
     @DelicateCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,6 +47,9 @@ class CheckListFragment : Fragment(R.layout.check_list_fragment) {
         setupRecyclerView()
         viewModel.fetchCheckList(userName, todoData.id)
         observeCount(todoData.id)
+        val noDataText =
+            "Dear $userName. Your checklist is empty.\nYou can Create one using the below Floating button!"
+        noDataTv.text = noDataText
         addNewCheckList.setOnClickListener {
             val dialog = AddCheckListDialog(todoData)
             dialog.show(parentFragmentManager, "addCheckList")

@@ -9,28 +9,30 @@
     android:orientation="vertical"
     tools:context=".ui.activity.LoginActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ScrollView>
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_marginBottom="20dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/welcome" />
+        app:lottie_rawRes="@raw/developers_moods" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
-        android:text="Hi! Welcome To Help Devs App"
+        android:text="Hey dev! Welcome To Help Devs App"
         android:textStyle="italic" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:text="Let's Help Eachother! And Grow Together!"
+        android:textStyle="italic|bold" />
 
     <TextView
         android:layout_width="match_parent"
@@ -40,11 +42,18 @@
         android:text="Please Sign in To Continue!"
         android:textStyle="italic" />
 
-
-    <com.google.android.gms.common.SignInButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/googleSignButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/white"
+        android:text="Sing In"
+        android:textColor="@color/black"
+        app:cornerRadius="30dp"
+        app:icon="@drawable/g_logo"
+        app:iconSize="20dp"
+        app:iconTint="@null" />
 
 </LinearLayout>
 

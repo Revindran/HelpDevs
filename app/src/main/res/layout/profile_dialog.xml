@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/AlertDialogTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/AlertDialogTheme"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="70dp"
@@ -45,18 +45,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         android:text="text" />
 
-    <Button
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/md_blue_700"
+        android:text="logout"
         app:cornerRadius="30dp"
-        android:text="logout" />
-
+        app:icon="@drawable/ic_exit"
+        app:iconGravity="end"
+        app:iconSize="20dp"
+        app:iconTint="@null" />
 
 </LinearLayout>

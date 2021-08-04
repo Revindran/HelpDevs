@@ -5,10 +5,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raveendran.helpdevs.R
@@ -44,21 +42,11 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
         val groups = args.groupData
         grpNameTv.text = groups.groupName
+        catChip.text = groups.groupCategory
         viewModel.fetchChats(groups.groupName)
 
-
-//        lifecycleScope.launch {
-//            if (viewModel.isMemberAdded(groups.groupName, userID)) {
-//                viewModel.updateTheMessageCount(groups.groupName)
-//                Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
-//            } else {
-//                viewModel.addMemberToGroup(groups.groupName, userID)
-//                Toast.makeText(context, "Now Newly Added", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
         val noDataText =
-            "Hey $userName. It's seems like you currently have some free time. So why don't you Go And Watch Philips new Vids. cuz it's worth watching"
+            "Dear $userName. Your Chat box is empty.\nYou can Be the first one to start the chat!"
         noChatTv.text = noDataText
         floatingActionButton.setOnClickListener {
             it.hideKeyboard()

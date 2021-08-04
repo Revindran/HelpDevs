@@ -4,13 +4,11 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.raveendran.helpdevs.models.Todo
 import com.raveendran.helpdevs.models.TodoCheckList
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class TodoViewModel : ViewModel() {
@@ -21,7 +19,8 @@ class TodoViewModel : ViewModel() {
     val totalCheckCount = MutableLiveData<Int>()
 
     fun fetchTodos(userName: String) {
-        val db = FirebaseFirestore.getInstance().collection(userName)
+        val db = FirebaseFirestore.getInstance().collection("Users").document(userName)
+            .collection("Todo")
         db.orderBy("timeStamp", Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "Listen failed", e)
@@ -44,7 +43,8 @@ class TodoViewModel : ViewModel() {
 
     suspend fun addNewTodo(todo: Todo, userName: String) {
         var id: String
-        val db = FirebaseFirestore.getInstance().collection(userName)
+        val db = FirebaseFirestore.getInstance().collection("Users").document(userName)
+            .collection("Todo")
         try {
             db.add(todo).await().get().addOnSuccessListener {
                 id = it.id
@@ -56,21 +56,29 @@ class TodoViewModel : ViewModel() {
         }
     }
 
+//    suspend fun deleteTodo(id: String, userName: String) {
+//        val db = FirebaseFirestore.getInstance().collection("Users").document(userName)
+//            .collection("Todo").document(id)
+//            .collection("Checklist")
+//        db.get().addOnSuccessListener {
+//            for (doc in it) {
+//                doc.reference.delete()
+//            }
+//            viewModelScope.launch {
+//                FirebaseFirestore.getInstance().collection("Users").document(userName)
+//                    .collection("Todo").document(id).delete().await()
+//            }
+//        }
+//    }
+
     suspend fun deleteTodo(id: String, userName: String) {
-        val db = FirebaseFirestore.getInstance().collection(userName).document(id)
-            .collection("Checklist")
-        db.get().addOnSuccessListener {
-            for (doc in it) {
-                doc.reference.delete()
-            }
-            viewModelScope.launch {
-                FirebaseFirestore.getInstance().collection(userName).document(id).delete().await()
-            }
-        }
+        FirebaseFirestore.getInstance().collection("Users").document(userName)
+            .collection("Todo").document(id).delete().await()
     }
 
     suspend fun saveTodo(todo: Todo, userName: String) {
-        val db = FirebaseFirestore.getInstance().collection(userName).document(todo.id)
+        val db = FirebaseFirestore.getInstance().collection("Users").document(userName)
+            .collection("Todo").document(todo.id)
         db.set(todo).await()
     }
 
@@ -82,13 +90,15 @@ class TodoViewModel : ViewModel() {
                 "priority" to todo.priority,
                 "timeStamp" to System.currentTimeMillis()
             )
-        val db = FirebaseFirestore.getInstance().collection(userName).document(todo.id)
+        val db = FirebaseFirestore.getInstance().collection("Users").document(userName)
+            .collection("Todo").document(todo.id)
         db.update(data as Map<String, Any>).await()
     }
 
     suspend fun addCheckList(name: String, id: String, data: TodoCheckList) {
         val db =
-            FirebaseFirestore.getInstance().collection(name).document(id).collection("Checklist")
+            FirebaseFirestore.getInstance().collection("Users").document(name)
+                .collection("Todo").document(id).collection("Checklist")
         db.add(data).await().get().addOnSuccessListener {
             try {
                 val id = it.id
@@ -102,7 +112,8 @@ class TodoViewModel : ViewModel() {
 
     fun fetchCheckList(name: String, id: String) {
         val db =
-            FirebaseFirestore.getInstance().collection(name).document(id).collection("Checklist")
+            FirebaseFirestore.getInstance().collection("Users").document(name)
+                .collection("Todo").document(id).collection("Checklist")
         db.orderBy("timeStamp", Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "Listen failed", e)
@@ -131,7 +142,8 @@ class TodoViewModel : ViewModel() {
     suspend fun changeCheckStatus(name: String, docId: String, checkId: String, status: Boolean) {
         val data = hashMapOf("checked" to status)
         val db =
-            FirebaseFirestore.getInstance().collection(name).document(docId).collection("Checklist")
+            FirebaseFirestore.getInstance().collection("Users").document(name)
+                .collection("Todo").document(docId).collection("Checklist")
                 .document(checkId)
         db.update(data as Map<String, Any>).await()
     }
@@ -139,7 +151,8 @@ class TodoViewModel : ViewModel() {
     suspend fun updatePercentage(name: String, docId: String, status: Int) {
         delay(1000)
         val data = hashMapOf("progress" to status)
-        val db = FirebaseFirestore.getInstance().collection(name).document(docId)
+        val db = FirebaseFirestore.getInstance().collection("Users").document(name)
+            .collection("Todo").document(docId)
         db.update(data as Map<String, Any>).await()
     }
 

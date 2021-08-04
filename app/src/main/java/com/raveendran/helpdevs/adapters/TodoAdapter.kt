@@ -63,8 +63,6 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
                 onItemClickListener?.let { it(todoItem) }
             }
         }
-
-
     }
 
     private var onItemClickListener: ((Todo) -> Unit)? = null
@@ -80,7 +78,7 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
     private fun setAnimation(viewToAnimate: View, position: Int) {
         if (position > lastPosition) {
             val animation: Animation =
-                AnimationUtils.loadAnimation(context, R.anim.slide_anim)
+                AnimationUtils.loadAnimation(context, R.anim.scale_anim)
             viewToAnimate.startAnimation(animation)
             lastPosition = position
         }

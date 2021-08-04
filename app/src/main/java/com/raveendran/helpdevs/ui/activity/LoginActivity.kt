@@ -18,8 +18,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.raveendran.helpdevs.R
+import com.raveendran.helpdevs.models.User
 import com.raveendran.helpdevs.other.Constants
 import com.raveendran.helpdevs.other.SharedPrefs
 import kotlinx.android.synthetic.main.activity_login.*
@@ -87,11 +89,12 @@ class LoginActivity : AppCompatActivity() {
                 navigateToHome()
                 writePersonalDataToSharedPref(uid, name, email, userImage)
                 if (it.additionalUserInfo!!.isNewUser) {
+                    saveUserData(uid!!, name!!, email!!, userImage.toString())
                     Log.d(gTAG, "firebaseAuthWithGoogle: new acc created $email")
                 } else {
                     Log.d(gTAG, "firebaseAuthWithGoogle: Existing user $email")
                 }
-                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "sign in as $email", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Log.d(gTAG, "firebaseAuthWithGoogle: ${it.message}")
@@ -132,5 +135,16 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToHome() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
+    }
+
+    private fun saveUserData(
+        uid: String,
+        name: String,
+        email: String,
+        userImage: String
+    ) {
+        val data = User(name, email, uid, userImage)
+        val db = FirebaseFirestore.getInstance().collection("Users").document(name)
+        db.set(data)
     }
 }

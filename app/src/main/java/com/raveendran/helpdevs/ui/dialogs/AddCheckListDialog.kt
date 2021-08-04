@@ -3,9 +3,9 @@ package com.raveendran.helpdevs.ui.dialogs
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.snackbar.Snackbar
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.models.Todo
 import com.raveendran.helpdevs.models.TodoCheckList
@@ -13,6 +13,7 @@ import com.raveendran.helpdevs.other.Constants
 import com.raveendran.helpdevs.other.SharedPrefs
 import com.raveendran.helpdevs.ui.viewmodels.TodoViewModel
 import kotlinx.android.synthetic.main.add_new_checklist.*
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -26,6 +27,7 @@ class AddCheckListDialog(data: Todo) : DialogFragment(R.layout.add_new_checklist
     private lateinit var sharedPref: SharedPreferences
     private var userName = ""
 
+    @DelicateCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
@@ -35,6 +37,7 @@ class AddCheckListDialog(data: Todo) : DialogFragment(R.layout.add_new_checklist
         }
     }
 
+    @DelicateCoroutinesApi
     private fun addNewCheckList(view: View) {
         val date = Date()
         val ft = SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.US)
@@ -42,23 +45,16 @@ class AddCheckListDialog(data: Todo) : DialogFragment(R.layout.add_new_checklist
         val title = chkListTitleET.text
         val data = TodoCheckList(
             title.toString(),
-            false,
-            "",
-            0,
-            System.currentTimeMillis(),
-            currentDateTime
+            createdTime = currentDateTime
         )
         if (title.toString().isNotEmpty()) {
             GlobalScope.launch {
                 viewModel.addCheckList(userName, todo.id, data)
             }
             chkListTitleET.setText("")
+            Toast.makeText(context, "Item Added Successfully", Toast.LENGTH_LONG).show()
             dialog?.dismiss()
-        } else Snackbar.make(
-            view,
-            "Please provide some title",
-            Snackbar.LENGTH_SHORT
-        ).show()
+        } else Toast.makeText(context, "Provide any title to continue", Toast.LENGTH_LONG).show()
     }
 
 }

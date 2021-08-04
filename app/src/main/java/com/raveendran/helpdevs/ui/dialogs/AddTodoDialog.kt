@@ -55,7 +55,6 @@ class AddTodoDialog : DialogFragment(R.layout.todo_add_dialog) {
             CoroutineScope(Dispatchers.IO).launch {
                 viewModel.addNewTodo(data, userName)
             }
-
             Toast.makeText(context, "Note Added Successfully", Toast.LENGTH_LONG).show()
             clearDialogData()
         } else {

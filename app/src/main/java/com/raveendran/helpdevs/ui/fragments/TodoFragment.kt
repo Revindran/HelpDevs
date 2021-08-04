@@ -68,7 +68,7 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
         Glide.with(this)
             .load(userImage).into(profileImageView)
         val noDataText =
-            "Hey $userName. It's seems like you currently don't have any work i guess. So why don't you Go And Watch Philips new Vids. cuz it's worth watching"
+            "Hii $userName. Currently you don't have any Todos.\nIf you want to create one.\nClick the below Floating Button"
         noDataTv2.text = noDataText
         observeList()
         setupRecyclerView()
@@ -109,7 +109,6 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
                 }
             }
         }
-
         ItemTouchHelper(itemTouchHelperCallback).apply {
             attachToRecyclerView(todoRecycler)
         }

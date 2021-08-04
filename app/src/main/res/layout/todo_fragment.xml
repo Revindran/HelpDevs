@@ -23,7 +23,7 @@
                 android:id="@+id/profileImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="Profile image"
+                android:contentDescription="@string/contentdescription"
                 android:scaleType="centerCrop" />
 
         </androidx.cardview.widget.CardView>
@@ -43,7 +43,7 @@
             android:id="@+id/currentime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
 
     </LinearLayout>
@@ -87,6 +87,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:clickable="true"
+        android:contentDescription="@string/contentdescription"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.921"

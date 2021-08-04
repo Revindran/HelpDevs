@@ -10,4 +10,5 @@ data class ChatGroup(
     val lastChat: String = "",
     val lastChatMemberName: String = "",
     val lastChatTime: String = "",
+    val groupCategory: String = "",
 ) : Serializable
