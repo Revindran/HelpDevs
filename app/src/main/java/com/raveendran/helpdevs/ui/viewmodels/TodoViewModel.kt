@@ -85,7 +85,9 @@ class TodoViewModel : ViewModel() {
                 .collection("Todo").document(id).collection("Checklist")
         db.add(data).await().get().addOnSuccessListener {
             try {
-                db.document(id).update(hashMapOf("id" to it.id) as Map<String, Any>)
+                val id = it.id
+                val data = hashMapOf("id" to id)
+                db.document(id).update(data as Map<String, Any>)
             } catch (e: Exception) {
                 print(e.message)
             }
