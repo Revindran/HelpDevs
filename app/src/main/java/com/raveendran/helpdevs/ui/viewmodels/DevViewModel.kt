@@ -8,14 +8,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.raveendran.helpdevs.models.Dev
 
-class UiViewModel : ViewModel() {
-
+class DevViewModel : ViewModel() {
     val devItems = MutableLiveData<List<Dev>>()
-
     init {
         fetchDevData()
     }
-
     private fun fetchDevData() {
         val db = FirebaseFirestore.getInstance().collection("Dev")
         db.orderBy("id", Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->

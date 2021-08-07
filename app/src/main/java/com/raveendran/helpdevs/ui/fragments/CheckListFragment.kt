@@ -1,5 +1,6 @@
 package com.raveendran.helpdevs.ui.fragments
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -82,6 +83,7 @@ class CheckListFragment : Fragment(R.layout.check_list_fragment) {
         })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun observeCount(id: String) {
         viewModel.totalCheckCount.observe(viewLifecycleOwner, { count ->
             viewModel.totalCheckListSize.observe(viewLifecycleOwner, { size ->

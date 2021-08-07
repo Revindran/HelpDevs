@@ -58,8 +58,12 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
         currentime.text =
             if (getCurrentTime() <= 11) "\uD83C\uDF04" else if (getCurrentTime() <= 16) "\uD83C\uDF1E" else "\uD83C\uDF03"
         greetingEt.text =
-            if (getCurrentTime() <= 11) "Good Morning $userName!!" else if (getCurrentTime() <= 16) "Good Afternoon $userName!!"
-            else if (getCurrentTime() <= 20) "Good Evening $userName!!" else "Good Night Have A Great Sleep"
+            when {
+                getCurrentTime() <= 11 -> "Good Morning $userName!!"
+                getCurrentTime() <= 16 -> "Good Afternoon $userName!!"
+                getCurrentTime() <= 20 -> "Good Evening $userName!!"
+                else -> "Good Night Have A Great Sleep Mate!"
+            }
         auth = Firebase.auth
         profileImageView.setOnClickListener {
             val dialog = ProfileDialog(userName, userImage, userUid, userMail)

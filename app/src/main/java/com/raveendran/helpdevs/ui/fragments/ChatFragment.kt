@@ -5,12 +5,10 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.messaging.FirebaseMessaging
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.adapters.ChatAdapter
 import com.raveendran.helpdevs.models.Chat
@@ -37,20 +35,6 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val groups = args.groupData
-        val topic = "/topics/${groups.groupName}".trim().replace(" ", "").lowercase()
-//        FirebaseMessaging.getInstance().subscribeToTopic(topic).addOnSuccessListener {
-//            Toast.makeText(
-//                requireContext(),
-//                "Subscribed to $topic Successfully",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }.addOnFailureListener {
-//            Toast.makeText(
-//                requireContext(),
-//                "Subscribed to ${it.message} Successfully",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
         setupRecyclerView()
         observeList()
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
@@ -66,15 +50,14 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         noChatTv.text = noDataText
         floatingActionButton.setOnClickListener {
             it.hideKeyboard()
-            addMessageToFB(groups.groupName, topic)
+            addMessageToFB(groups.groupName)
         }
     }
 
     @DelicateCoroutinesApi
-    private fun addMessageToFB(groupName: String, topic: String) {
+    private fun addMessageToFB(groupName: String) {
         GlobalScope.launch {
             val text = msgEt.text.toString()
-//            FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
             if (text.isNotEmpty()) {
                 val date = Date()
                 val ft = SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.US)
@@ -86,7 +69,7 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
                     "",
                     userName
                 )
-                viewModel.addChat(groupName, chat, topic)
+                viewModel.addChat(groupName, chat)
             }
         }
         msgEt.setText("")

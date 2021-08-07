@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddCheckListDialog(data: Todo) : DialogFragment(R.layout.add_new_checklist) {
-//    override fun getTheme() = R.style.AlertDialogTheme
     private val todo = data
 
     private val viewModel: TodoViewModel by viewModels()

@@ -59,5 +59,4 @@ class ProfileDialog(
         startActivity(Intent(context, LoginActivity::class.java))
         activity?.finish()
     }
-
 }

@@ -62,8 +62,7 @@ class AddGroupDialog : DialogFragment(R.layout.add_group_dialog) {
                 context,
                 "Please give a name and select a category to create a group",
                 Toast.LENGTH_SHORT
-            )
-                .show()
+            ).show()
     }
 
 }

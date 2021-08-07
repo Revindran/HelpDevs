@@ -83,6 +83,4 @@ class AddTodoDialog : DialogFragment(R.layout.todo_add_dialog) {
         return view.notesET.text.toString().isNotEmpty() && view.titleET.text.toString()
             .isNotEmpty() && radioData.isNotEmpty()
     }
-
-
 }

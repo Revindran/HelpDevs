@@ -8,12 +8,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.adapters.DevAdapter
-import com.raveendran.helpdevs.ui.viewmodels.UiViewModel
+import com.raveendran.helpdevs.ui.viewmodels.DevViewModel
 import kotlinx.android.synthetic.main.dev_fragment.*
 
 class DevFragment : Fragment(R.layout.dev_fragment) {
 
-    private val viewModel: UiViewModel by viewModels()
+    private val viewModel: DevViewModel by viewModels()
     private lateinit var devAdapter: DevAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

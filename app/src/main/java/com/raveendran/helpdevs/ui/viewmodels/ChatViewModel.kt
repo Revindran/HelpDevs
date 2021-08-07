@@ -19,7 +19,7 @@ class ChatViewModel : ViewModel() {
         fetchChatGroups()
     }
 
-    suspend fun addChat(groupName: String, chat: Chat, topic: String) {
+    suspend fun addChat(groupName: String, chat: Chat) {
         var id: String
         val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
             .collection("chat")
@@ -34,11 +34,7 @@ class ChatViewModel : ViewModel() {
                     "lastChatTime" to chat.time
                 )
                 FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
-                    .update(data2 as Map<String, Any>).addOnSuccessListener {
-                        //
-                    }.addOnFailureListener {
-                        println("${it.message}")
-                    }
+                    .update(data2 as Map<String, Any>)
             }
         } catch (e: Exception) {
             print(e.message)
