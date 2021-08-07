@@ -5,10 +5,12 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.messaging.FirebaseMessaging
 import com.raveendran.helpdevs.R
 import com.raveendran.helpdevs.adapters.ChatAdapter
 import com.raveendran.helpdevs.models.Chat
@@ -34,13 +36,27 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
     @DelicateCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val groups = args.groupData
+        val topic = "/topics/${groups.groupName}".trim().replace(" ", "").lowercase()
+//        FirebaseMessaging.getInstance().subscribeToTopic(topic).addOnSuccessListener {
+//            Toast.makeText(
+//                requireContext(),
+//                "Subscribed to $topic Successfully",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }.addOnFailureListener {
+//            Toast.makeText(
+//                requireContext(),
+//                "Subscribed to ${it.message} Successfully",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
         setupRecyclerView()
         observeList()
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
         userID = sharedPref.getString(Constants.KEY_UID, "").toString()
 
-        val groups = args.groupData
         grpNameTv.text = groups.groupName
         catChip.text = groups.groupCategory
         viewModel.fetchChats(groups.groupName)
@@ -50,14 +66,15 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         noChatTv.text = noDataText
         floatingActionButton.setOnClickListener {
             it.hideKeyboard()
-            addMessageToFB(view, groups.groupName)
+            addMessageToFB(groups.groupName, topic)
         }
     }
 
     @DelicateCoroutinesApi
-    private fun addMessageToFB(view: View, groupName: String) {
+    private fun addMessageToFB(groupName: String, topic: String) {
         GlobalScope.launch {
             val text = msgEt.text.toString()
+//            FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
             if (text.isNotEmpty()) {
                 val date = Date()
                 val ft = SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.US)
@@ -69,7 +86,7 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
                     "",
                     userName
                 )
-                viewModel.addChat(groupName, chat)
+                viewModel.addChat(groupName, chat, topic)
             }
         }
         msgEt.setText("")

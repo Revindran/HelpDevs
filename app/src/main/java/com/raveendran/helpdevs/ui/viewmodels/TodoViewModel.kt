@@ -8,7 +8,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.raveendran.helpdevs.models.Todo
 import com.raveendran.helpdevs.models.TodoCheckList
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
 
 class TodoViewModel : ViewModel() {
@@ -55,21 +54,6 @@ class TodoViewModel : ViewModel() {
             print(e.message)
         }
     }
-
-//    suspend fun deleteTodo(id: String, userName: String) {
-//        val db = FirebaseFirestore.getInstance().collection("Users").document(userName)
-//            .collection("Todo").document(id)
-//            .collection("Checklist")
-//        db.get().addOnSuccessListener {
-//            for (doc in it) {
-//                doc.reference.delete()
-//            }
-//            viewModelScope.launch {
-//                FirebaseFirestore.getInstance().collection("Users").document(userName)
-//                    .collection("Todo").document(id).delete().await()
-//            }
-//        }
-//    }
 
     suspend fun deleteTodo(id: String, userName: String) {
         FirebaseFirestore.getInstance().collection("Users").document(userName)
@@ -149,7 +133,6 @@ class TodoViewModel : ViewModel() {
     }
 
     suspend fun updatePercentage(name: String, docId: String, status: Int) {
-        delay(1000)
         val data = hashMapOf("progress" to status)
         val db = FirebaseFirestore.getInstance().collection("Users").document(name)
             .collection("Todo").document(docId)

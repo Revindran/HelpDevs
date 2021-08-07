@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/AlertDialogTheme"
     android:layout_width="match_parent"
+    style="@style/AlertDialogTheme"
     android:layout_height="wrap_content"
     android:minWidth="1000dp"
     android:orientation="vertical">
@@ -14,11 +14,12 @@
         android:padding="10dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:theme="@style/MyTextInputLayout_overlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20sp"
-            android:hint="Enter Title">
+            android:hint="Title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/titleET"
@@ -29,11 +30,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:theme="@style/MyTextInputLayout_overlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20sp"
-            android:hint="Enter Notes">
+            android:hint="Notes">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/notesET"
@@ -72,12 +74,14 @@
 
         </RadioGroup>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            app:strokeColor="@color/white"
+            app:strokeWidth=".5dp"
             android:id="@+id/addGroupBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/md_blue_700"
+            android:backgroundTint="@color/md_blue_900"
             android:elevation="10dp"
             android:text="add Todo"
             app:cornerRadius="30dp" />

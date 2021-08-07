@@ -60,7 +60,6 @@
             android:layout_marginStart="2dp"
             android:padding="8dp"
             android:text="message"
-            android:textColor="@color/black"
             android:textSize="18sp" />
 
     </LinearLayout>

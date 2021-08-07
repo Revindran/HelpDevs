@@ -1,5 +1,6 @@
 package com.raveendran.helpdevs.ui.dialogs
 
+import android.app.Dialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -12,7 +13,6 @@ import com.raveendran.helpdevs.models.Todo
 import com.raveendran.helpdevs.other.Constants
 import com.raveendran.helpdevs.other.SharedPrefs
 import com.raveendran.helpdevs.ui.viewmodels.TodoViewModel
-import kotlinx.android.synthetic.main.todo_add_dialog.radioGroup
 import kotlinx.android.synthetic.main.todo_update_dialog.*
 import kotlinx.android.synthetic.main.todo_update_dialog.view.*
 import kotlinx.coroutines.launch
@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class UpdateTodoDialog(todoItem: Todo) : DialogFragment(R.layout.todo_update_dialog) {
-    override fun getTheme() = R.style.AlertDialogTheme
     private val todo = todoItem
     private val viewModel: TodoViewModel by viewModels()
     private var radioData = ""
@@ -58,7 +57,6 @@ class UpdateTodoDialog(todoItem: Todo) : DialogFragment(R.layout.todo_update_dia
             lifecycleScope.launch {
                 viewModel.updateTodo(data, userName)
             }
-
             Toast.makeText(context, "Todo Updated Successfully", Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(context, "Fill All the fields to continue", Toast.LENGTH_LONG).show()

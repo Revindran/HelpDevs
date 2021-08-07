@@ -67,7 +67,7 @@ class DevAdapter(val context: Context) : RecyclerView.Adapter<DevAdapter.DevView
     private fun setAnimation(viewToAnimate: View, position: Int) {
         if (position > lastPosition) {
             val animation: Animation =
-                AnimationUtils.loadAnimation(context, R.anim.recycler_fall_down_anim)
+                AnimationUtils.loadAnimation(context, R.anim.item_fall_down)
             viewToAnimate.startAnimation(animation)
             lastPosition = position
         }

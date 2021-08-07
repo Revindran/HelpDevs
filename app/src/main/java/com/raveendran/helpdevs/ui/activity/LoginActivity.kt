@@ -94,7 +94,8 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     Log.d(gTAG, "firebaseAuthWithGoogle: Existing user $email")
                 }
-                Toast.makeText(this, "sign in as $email", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Signed as $email", Toast.LENGTH_SHORT)
+                    .show()
             }
             .addOnFailureListener {
                 Log.d(gTAG, "firebaseAuthWithGoogle: ${it.message}")

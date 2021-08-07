@@ -15,12 +15,11 @@ class ChatViewModel : ViewModel() {
     val chats = MutableLiveData<List<Chat>>()
     val chatGroups = MutableLiveData<List<ChatGroup>>()
 
-
     init {
         fetchChatGroups()
     }
 
-    suspend fun addChat(groupName: String, chat: Chat) {
+    suspend fun addChat(groupName: String, chat: Chat, topic: String) {
         var id: String
         val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
             .collection("chat")
@@ -36,7 +35,9 @@ class ChatViewModel : ViewModel() {
                 )
                 FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
                     .update(data2 as Map<String, Any>).addOnSuccessListener {
-                        // TODO: 02-08-2021 Update the message count
+                        //
+                    }.addOnFailureListener {
+                        println("${it.message}")
                     }
             }
         } catch (e: Exception) {
@@ -44,45 +45,6 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    suspend fun isMemberAdded(groupName: String, uid: String): Boolean {
-        val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
-            .collection("members").document(uid).get().await()
-        if (db.exists()) {
-            return true
-        }
-        return false
-    }
-
-    suspend fun addMemberToGroup(groupName: String, uid: String) {
-        val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
-            .collection("members").document(uid)
-        val data = hashMapOf("count" to 0, "uid" to uid)
-        db.set(data as Map<String, Any>).await()
-    }
-
-    fun updateTheMessageCount(groupName: String) {
-        val db = FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
-            .collection("members")
-        db.addSnapshotListener { snapshot, e ->
-            if (e != null) {
-                Log.w(ContentValues.TAG, "Listen failed", e)
-                return@addSnapshotListener
-            }
-            if (snapshot != null && snapshot.size() > 0) {
-                for (doc in snapshot) {
-                    val count = doc["count"]
-                    val id = doc.id
-                }
-            }
-        }
-    }
-
-    private fun updateCount(groupName: String, uid: String, count: String) {
-        var c = count.toInt()
-        val data = hashMapOf("count" to c++)
-        FirebaseFirestore.getInstance().collection("ChatGroups").document(groupName)
-            .collection("members").document(uid).update(data as Map<String, Any>)
-    }
 
     fun fetchChats(groupName: String) {
         val db =
@@ -129,7 +91,6 @@ class ChatViewModel : ViewModel() {
             }
         }
     }
-
 
     suspend fun createNewChatGroup(data: ChatGroup) {
         val db = FirebaseFirestore.getInstance().collection("ChatGroups")

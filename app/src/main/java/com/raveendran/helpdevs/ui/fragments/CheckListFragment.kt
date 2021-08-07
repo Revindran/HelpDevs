@@ -36,8 +36,8 @@ class CheckListFragment : Fragment(R.layout.check_list_fragment) {
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
         val todoData = args.checkList
-        val highPriorityText = "🟢 High Priority"
-        val lowPriorityText = "🔴 Low Priority"
+        val highPriorityText = "\uD83D\uDFE2 High Priority"
+        val lowPriorityText = "\uD83D\uDD34 Low Priority"
         todoTv.text = todoData.todo
         timeTv.text = todoData.time
         noteTv.text = todoData.notes

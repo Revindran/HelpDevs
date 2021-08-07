@@ -4,8 +4,10 @@
         <!-- Original AppCompat attributes. -->
         <item name="colorPrimary">@color/md_blue_900</item>
         <item name="colorSecondary">@color/md_blue_500</item>
-        <item name="android:colorBackground">@color/md_blue_900</item>
+<!--        <item name="android:colorBackground">@color/md_blue_900</item>-->
+        <item name="android:colorBackground">#141E61</item>
         <item name="colorError">@color/errorColor</item>
+        <item name="android:colorAccent">@color/md_blue_50</item>
 
         <!-- New MaterialComponents attributes. -->
         <item name="colorPrimaryVariant">@android:color/white</item>
@@ -40,7 +42,7 @@
         <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
 
-        <item name="android:statusBarColor">@color/md_blue_900</item>
+        <item name="android:statusBarColor">#141E61</item>
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
 
@@ -52,7 +54,7 @@
     </style>
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="android:background">@color/md_blue_800</item>
+        <item name="android:background">@color/md_blue_900</item>
         <item name="android:radius">20dp</item>
         <item name="dialogCornerRadius">20dp</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
@@ -70,7 +72,28 @@
 
     <style name="SplashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="android:statusBarColor">@color/md_blue_900</item>
+        <item name="android:statusBarColor">@color/bg</item>
+    </style>
+
+    <style name="MyTextInputLayout_overlay">
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnPrimarySurface">@color/white</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextInputLayout.FilledBox.Dense" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="errorIconDrawable">@null</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="errorTextColor">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
     </style>
 
 </resources>

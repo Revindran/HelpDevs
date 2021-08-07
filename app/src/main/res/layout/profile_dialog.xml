@@ -56,6 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        app:strokeColor="@color/white"
+        app:strokeWidth=".5dp"
         android:backgroundTint="@color/md_blue_700"
         android:text="logout"
         app:cornerRadius="30dp"

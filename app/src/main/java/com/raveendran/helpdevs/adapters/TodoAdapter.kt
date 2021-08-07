@@ -47,8 +47,8 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val todoItem = differ.currentList[position]
         holder.itemView.apply {
-            val highPriorityText = "🟢 High Priority"
-            val lowPriorityText = "🔴 Low Priority"
+            val highPriorityText = "\uD83D\uDFE2 High Priority"
+            val lowPriorityText = "\uD83D\uDD34 Low Priority"
             todoTv.text = todoItem.todo
             timeTv.text = todoItem.time
             noteTv.text = todoItem.notes

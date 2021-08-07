@@ -9,7 +9,8 @@
     android:padding="10dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:theme="@style/MyTextInputLayout_overlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Title">
@@ -22,7 +23,9 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
+        app:strokeColor="@color/white"
+        app:strokeWidth=".5dp"
         android:id="@+id/addChkListBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
