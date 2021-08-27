@@ -67,8 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:indicatorColor="@color/md_blue_700"
-            app:trackColor="@color/primaryDarkColor"
+            app:indicatorColor="@color/primaryTextColor"
+            app:trackColor="@color/md_blue_700"
             app:trackCornerRadius="6dp"
             app:trackThickness="8dp" />
 
@@ -76,24 +76,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/progressCount"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_weight="1"
-                android:text="20% Completed" />
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/priorityTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="🔴 High Priority" />
+                android:gravity="end"/>
 
         </LinearLayout>
 

@@ -31,12 +31,12 @@ class AddGroupDialog : DialogFragment(R.layout.add_group_dialog) {
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
         addGroupBtn.setOnClickListener {
-            createNewChatGroup(view)
+            createNewChatGroup()
         }
     }
 
     @DelicateCoroutinesApi
-    private fun createNewChatGroup(view: View) {
+    private fun createNewChatGroup() {
         val chip = chipGroup?.children?.toList()?.filter { (it as Chip).isChecked }
             ?.joinToString(", ") { (it as Chip).text }
         val date = Date()

@@ -32,12 +32,12 @@ class AddCheckListDialog(data: Todo) : DialogFragment(R.layout.add_new_checklist
         sharedPref = context?.let { SharedPrefs.sharedPreferences(it) }!!
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
         addChkListBtn.setOnClickListener {
-            addNewCheckList(view)
+            addNewCheckList()
         }
     }
 
     @DelicateCoroutinesApi
-    private fun addNewCheckList(view: View) {
+    private fun addNewCheckList() {
         val date = Date()
         val ft = SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.US)
         val currentDateTime = ft.format(date)

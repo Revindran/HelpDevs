@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_login)
 
-        sharedPref = this.let { SharedPrefs.sharedPreferences(it) }!!
+        sharedPref = this.let { SharedPrefs.sharedPreferences(it) }
         auth = Firebase.auth
         val currentUser = auth.currentUser
         updateUI(currentUser)

@@ -7,9 +7,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -141,6 +139,6 @@ class TodoFragment : Fragment(R.layout.todo_fragment) {
         })
         todoAdapter = TodoAdapter(context)
         adapter = todoAdapter
-        layoutManager = LinearLayoutManager(requireContext())
+        layoutManager = StaggeredGridLayoutManager(2,RecyclerView.VERTICAL)
     }
 }

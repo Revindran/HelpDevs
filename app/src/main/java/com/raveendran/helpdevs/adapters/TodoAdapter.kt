@@ -47,8 +47,8 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val todoItem = differ.currentList[position]
         holder.itemView.apply {
-            val highPriorityText = "\uD83D\uDFE2 High Priority"
-            val lowPriorityText = "\uD83D\uDD34 Low Priority"
+            val highPriorityText = "\uD83D\uDFE2"
+            val lowPriorityText = "\uD83D\uDD34"
             todoTv.text = todoItem.todo
             timeTv.text = todoItem.time
             noteTv.text = todoItem.notes
@@ -56,8 +56,6 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
                 if (todoItem.priority.equals("High", true)) highPriorityText else lowPriorityText
             totalProgress.progress = todoItem.progress
             progressCount.text = "${todoItem.progress}% Completed"
-
-
             setAnimation(this, position)
             setOnClickListener {
                 onItemClickListener?.let { it(todoItem) }
@@ -78,7 +76,7 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
     private fun setAnimation(viewToAnimate: View, position: Int) {
         if (position > lastPosition) {
             val animation: Animation =
-                AnimationUtils.loadAnimation(context, R.anim.scale_anim)
+                AnimationUtils.loadAnimation(context, R.anim.item_fall_down)
             viewToAnimate.startAnimation(animation)
             lastPosition = position
         }

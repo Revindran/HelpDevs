@@ -11,7 +11,7 @@
         android:layout_height="200dp"
         android:padding="10dp"
         app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/kotlin" />
+        app:lottie_rawRes="@raw/kt" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/devRecycler"
