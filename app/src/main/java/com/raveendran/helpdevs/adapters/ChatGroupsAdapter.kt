@@ -73,7 +73,6 @@ class ChatGroupsAdapter(val context: Context) :
         return differ.currentList.size
     }
 
-
     private var onItemClickListener: ((ChatGroup) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (ChatGroup) -> Unit) {
@@ -89,7 +88,7 @@ class ChatGroupsAdapter(val context: Context) :
     private fun setAnimation(viewToAnimate: View, position: Int) {
         if (position > lastPosition) {
             val animation: Animation =
-                AnimationUtils.loadAnimation(context, R.anim.rotate_anim)
+                AnimationUtils.loadAnimation(context, R.anim.item_fall_down)
             viewToAnimate.startAnimation(animation)
             lastPosition = position
         }

@@ -38,7 +38,7 @@ class CheckListFragment : Fragment(R.layout.check_list_fragment) {
         userName = sharedPref.getString(Constants.KEY_NAME, "").toString()
         val todoData = args.checkList
         val highPriorityText = "\uD83D\uDFE2 High Priority"
-        val lowPriorityText = "\uD83D\uDD34 Low Priority"
+        val lowPriorityText = "\uD83D\uDFE0 Low Priority"
         todoTv.text = todoData.todo
         timeTv.text = todoData.time
         noteTv.text = todoData.notes

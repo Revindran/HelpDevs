@@ -48,7 +48,7 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.TodoV
         val todoItem = differ.currentList[position]
         holder.itemView.apply {
             val highPriorityText = "\uD83D\uDFE2"
-            val lowPriorityText = "\uD83D\uDD34"
+            val lowPriorityText = "\uD83D\uDFE0 "
             todoTv.text = todoItem.todo
             timeTv.text = todoItem.time
             noteTv.text = todoItem.notes
